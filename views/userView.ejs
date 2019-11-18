@@ -1,0 +1,56 @@
+<!-- views/userView.ejs -->
+<div class="form-header">
+  <h2>User View</h2>
+</div>
+<form method="post" action="/userView/userViewPost" novalidate>
+  <div class="form-field">
+    <label for="product">Products</label>
+     <select id="product" name="product">
+      <option value="">Select Product</option>
+      <option value="prod1">Product 1</option>
+      <option value="prod2">Product 2</option>
+      <option value="prod3">Product 3</option>
+      <option value="prod4">Product 4</option>
+    </select> 
+  </div>
+  <div class="form-field">
+    <label for="date">Date</label>
+    <input type="radio" name="date" value="daily"> Daily<br>
+    <input type="radio" name="date" value="weekly"> Weekly<br>
+    <input type="radio" name="date" value="monthly"> Monthly <br>
+    <input type="radio" name="date" value="custom"> Custom <br>
+    <input type="text" name="custom" placeholder="MM-DD-YYYY">
+  </div>
+  <div class="form-actions">
+    <button class="btn" type="submit">Submit</button>
+  </div>
+</form>
+<% if(data){ %>
+<table class="table table-inverse" border="1">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Count</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% for(var i=0; i < data.length; i++) { %>
+       <tr>
+          <% if(date == "weekly"){ %>
+              <td><%= data[i].weeks.week %></td>
+              <td><%= data[i].weeks.count %></td>
+          <% }else if(date == "monthly"){ %>
+             <td><%= data[i]._id %></td>
+             <td><%= data[i].count %></td>
+             <% }else{ %>
+                <td><%= data[i]._id.timestamp %></td>
+                <td><%= data[i].count %></td>
+             <% } %>
+
+       </tr>
+    <% } %>
+      </tbody>
+
+    </table>
+     <% } %>
